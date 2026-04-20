@@ -1,6 +1,6 @@
 <div align="center">
   <!-- PLACEHOLDER #1: KKBox logo / project banner -->
-  <img width="320px" src="images/kkbox_logo_placeholder.png" alt="KKBox logo placeholder" />
+  <img width="320px" src="https://github.com/user-attachments/assets/ecf47bc1-cbeb-474e-a385-219be8d30750" alt="KKBox logo placeholder" />
 </div>
 <h1 align="center">KKBox Subscription Churn Analysis &amp; Automated Insight Pipeline</h1>
 
@@ -35,7 +35,7 @@
       <h3 align="center">Churn Driver Odds Ratios (Logistic Regression, AUC = 0.9665)</h3>
       <div align="center">
         <!-- EXISTING IMAGE: churn_drivers.png (from NB04 -- odds ratio bar chart) -->
-        <img width="1000" alt="Odds ratio bar chart of top churn drivers" src="images/churn_drivers.png" />
+        <img width="1000" alt="Odds ratio bar chart of top churn drivers" src="https://github.com/user-attachments/assets/b3a6b325-9dca-4e49-a8a4-55369b7b7274" />
       </div>
       <td width="460" valign="top">
         <ol>
@@ -83,7 +83,7 @@ The analysis draws on four joined sources: member demographics, subscription tra
 </body>
 <div align="center">
   <!-- PLACEHOLDER #2: ERD / schema diagram showing the four source tables joined on msno (user ID) -->
-  <img width="680" src="images/erd_placeholder.png" alt="ERD placeholder" />
+  <img width="680" src="https://github.com/user-attachments/assets/ecc0fbd2-f885-48fb-9c22-feca0202f149" />
 </div>
 
 <table align="center">
@@ -91,10 +91,10 @@ The analysis draws on four joined sources: member demographics, subscription tra
     <td>
       <strong>Source tables</strong>
       <ul>
-        <li><code>members_v3.csv</code> &mdash; ~6.7M rows. Demographics (age, gender, city, registration channel).</li>
-        <li><code>transactions_v2.csv</code> &mdash; ~1.43M rows across 868K users. Plan length, price paid, auto-renew flag, cancel flag.</li>
-        <li><code>user_logs_v2.csv</code> &mdash; ~30M rows / 1.4 GB. Per-user daily listening: unique songs, seconds played, completion breakdown.</li>
-        <li><code>train_v2.csv</code> &mdash; ~970K labeled users (<code>is_churn</code> = 1 if no renewal within 30 days of expiry).</li>
+        <li><code>members_v3.csv</code> ~6.7M rows. Demographics (age, gender, city, registration channel).</li>
+        <li><code>transactions_v2.csv</code> ~1.43M rows across 868K users. Plan length, price paid, auto-renew flag, cancel flag.</li>
+        <li><code>user_logs_v2.csv</code> ~30M rows / 1.4 GB. Per-user daily listening: unique songs, seconds played, completion breakdown.</li>
+        <li><code>train_v2.csv</code> ~970K labeled users (<code>is_churn</code> = 1 if no renewal within 30 days of expiry).</li>
       </ul>
     </td>
   </tr>
@@ -137,15 +137,15 @@ The analysis draws on four joined sources: member demographics, subscription tra
     <h1 align="center">Churn Drivers</h1>
     <td width="1000">
       <!-- EXISTING IMAGE: roc_curve.png -->
-      <img width="300" src="images/roc_curve.png" alt="ROC curve for logistic regression churn model" />
+      <img width="300" src="https://github.com/user-attachments/assets/22e03925-4304-48fd-b378-dee7eff69849" alt="ROC curve for logistic regression churn model" />
     </td>
     <td width="1000">
       <!-- EXISTING IMAGE: feature_importance_preview.png -->
-      <img width="300" src="images/feature_importance_preview.png" alt="Feature importance preview" />
+      <img width="300" src="https://github.com/user-attachments/assets/63ffc2d4-9598-4547-9cc0-e6566c9b24d1" alt="Feature importance preview" />
     </td>
     <td width="1000">
       <!-- EXISTING IMAGE: correlation_heatmap.png -->
-      <img width="300" src="images/correlation_heatmap.png" alt="Feature correlation heatmap" />
+      <img width="300" src="https://github.com/user-attachments/assets/6e021c79-f45c-460c-bde3-b32d33f25c8c" alt="Feature correlation heatmap" />
     </td>
   </tr>
 </table>
@@ -193,7 +193,7 @@ The analysis draws on four joined sources: member demographics, subscription tra
       <div align="center">
         <h3>6-Panel KPI Trend Dashboard (Pipeline Output)</h3>
         <!-- EXISTING IMAGE: monthly_kpi_trends.png (produced by NB05) -->
-        <img width="1000" alt="Monthly KPI trend dashboard across transactions, users, auto-renew rate, cancel rate, revenue, and churn pressure" src="images/monthly_kpi_trends.png" />
+        <img width="1000" alt="Monthly KPI trend dashboard across transactions, users, auto-renew rate, cancel rate, revenue, and churn pressure" src="https://github.com/user-attachments/assets/36e851c3-8502-413f-ad7f-9d411eafda88" />
       </div>
   </tr>
 </table>
@@ -232,14 +232,30 @@ The analysis draws on four joined sources: member demographics, subscription tra
     <h1 align="center">Automated Brief Pipeline</h1>
     <tr align="center">
       <td width="1000">
-        <h3>End-to-End Flow</h3>
-        <!-- PLACEHOLDER #3: pipeline architecture diagram (raw data -> KPI engine -> anomaly detection -> cohort detection -> prompt builder -> Claude API -> markdown briefs) -->
-        <img width="450" src="images/pipeline_architecture_placeholder.png" alt="Pipeline architecture placeholder" />
-      </td>
+  <h3>End-to-End Flow</h3>
+
+```mermaid
+flowchart LR
+    A[transactions_v2.csv<br/>train_v2.csv] --> B[Monthly KPI Engine<br/>11 KPIs per month]
+    B --> C[Anomaly Detection<br/>rolling 3mo z-score]
+    B --> D[At-Risk Cohort Detection<br/>grounded in NB04 ORs]
+    C --> E[Prompt Builder<br/>system + user prompt]
+    D --> E
+    E --> F[Claude API<br/>claude-sonnet-4]
+    F --> G[Ops Brief<br/>*_ops_brief.md]
+    F --> H[Cohort Alert<br/>*_cohort_alert.md]
+
+    style A fill:#e1f5ff,stroke:#0366d6
+    style F fill:#fff4e1,stroke:#d97706
+    style G fill:#e6ffed,stroke:#28a745
+    style H fill:#e6ffed,stroke:#28a745
+```
+
+</td>
       <td width="1000">
         <h3>Sample Generated Brief</h3>
         <!-- PLACEHOLDER #4: screenshot of a rendered ops brief markdown file (e.g. 2017-01_ops_brief.md) -->
-        <img width="450" src="images/sample_brief_placeholder.png" alt="Sample brief screenshot placeholder" />
+        <img width="450" src="https://github.com/user-attachments/assets/2e96cb73-16d1-46b5-99f1-1b8ab6f2b3ee" alt="Sample brief screenshot placeholder" />
       </td>
     </tr>
   </table>
