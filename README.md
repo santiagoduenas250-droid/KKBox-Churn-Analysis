@@ -13,7 +13,7 @@
         <br><br>
         The working dataset, sourced from the <a href="https://www.kaggle.com/c/kkbox-churn-prediction-challenge/data">KKBox Churn Prediction Challenge</a> on Kaggle, covers roughly <strong>6.7 million members</strong>, <strong>1.43 million transactions</strong> (Jan 2015 &ndash; Mar 2017), <strong>~30 million daily listening logs</strong>, and <strong>~970K labeled churn outcomes</strong>.
         <br><br>
-        This project was scoped as a data analyst deliverable, not a Kaggle leaderboard run. The goal was not to squeeze another 0.1% AUC out of a model &mdash; it was to answer the business questions a retention team actually asks each month, and to <strong>automate the reporting layer</strong> so those answers scale without analyst bottleneck.
+        This project was scoped as a data analyst deliverable, not a Kaggle leaderboard run. The goal was not to squeeze another 0.1% AUC out of a model, it was to answer the business questions a retention team actually asks each month, and to <strong>automate the reporting layer</strong> so those answers scale without analyst bottleneck.
       </body>
       <h3>Northstar Metrics</h3>
       <h4>
